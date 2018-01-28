@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { MarketStatusService } from './market-status.service';
 import { Observable } from 'rxjs/Observable';
+
+import { MarketStatusService } from './market-status.service';
 import { MarketPrice } from './market-price';
 
 @Component({
