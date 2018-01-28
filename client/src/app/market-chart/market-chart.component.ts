@@ -65,7 +65,7 @@ export class MarketChartComponent implements OnInit, OnChanges {
     var valueline = d3.line<MarketPrice>()
       .x(function (d) {
         if (d.date instanceof Date) {
-          return _this.chartProps.x(d.date.getTime());
+          return _this.chartProps.x(d.date);
         }
       })
       .y(function (d) { return _this.chartProps.y(d.close); });
@@ -74,7 +74,7 @@ export class MarketChartComponent implements OnInit, OnChanges {
     var valueline2 = d3.line<MarketPrice>()
       .x(function (d) {
         if (d.date instanceof Date) {
-          return _this.chartProps.x(d.date.getTime());
+          return _this.chartProps.x(d.date);
         }
       })
       .y(function (d) { return _this.chartProps.y(d.open); });
@@ -90,7 +90,7 @@ export class MarketChartComponent implements OnInit, OnChanges {
     this.chartProps.x.domain(
       d3.extent(_this.marketStatus, function (d) {
         if (d.date instanceof Date)
-          return (d.date as Date).getTime();
+          return (d.date as Date);
       }));
     this.chartProps.y.domain([0, d3.max(this.marketStatus, function (d) {
       return Math.max(d.close, d.open);
@@ -133,7 +133,7 @@ export class MarketChartComponent implements OnInit, OnChanges {
     // Scale the range of the data again
     this.chartProps.x.domain(d3.extent(this.marketStatus, function (d) {
       if (d.date instanceof Date) {
-        return d.date.getTime();
+        return d.date;
       }
     }));
     this.chartProps.y.domain([0, d3.max(this.marketStatus, function (d) { return Math.max(d.close, d.open); })]);
