@@ -1,10 +1,10 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {HttpClientModule} from '@angular/common/http';
 
-import { AppComponent } from './app.component';
-import { MarketStatusService } from './market-status.service';
-import { MarketChartComponent } from './market-chart/market-chart.component';
+import {AppComponent} from './app.component';
+import {MarketStatusService} from './market-status.service';
+import {MarketChartComponent} from './market-chart/market-chart.component';
 
 @NgModule({
   declarations: [
@@ -20,4 +20,5 @@ import { MarketChartComponent } from './market-chart/market-chart.component';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

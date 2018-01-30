@@ -1,41 +1,39 @@
-let app = require('express')();
-let http = require('http').Server(app);
-let io = require('socket.io')(http);
-let market = require('./market');
+const app = require('express')();
+const http = require('http').createServer(app);
+const io = require('socket.io')(http);
+const market = require('./market');
 
-const port = 3000;
-
-app.use(function (req, res, next) {
-	res.header("Access-Control-Allow-Origin", "*");
-	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-	next();
-})
-
-app.get('/api/market', function (req, res) {
-	res.send(market.marketPositions);
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
 });
 
-app.get('/', function (req, res) {
-	res.sendFile(__dirname + '/index.html');
+app.get('/api/market', (req, res) => {
+  res.send(market.marketPositions);
 });
 
-setInterval(function () {
-	market.updateMarket();
-	io.sockets.emit("market", market.marketPositions[0]);
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/index.html');
+});
+
+setInterval(() => {
+  market.updateMarket();
+  io.sockets.emit("market", market.marketPositions[0]);
 }, 5000);
 
-io.on('connection', function (socket) {
-	console.log('a user connected');
+io.on('connection', (socket) => {
+  console.log('a user connected');
 
-	socket.on('chat message', function (msg) {
-		console.log('user disconnected');
-	});
+  socket.on('chat message', (msg) => {
+    console.log('user disconnected');
+  });
 
-	socket.on('disconnect', function () {
-		console.log('user disconnected');
-	});
+  socket.on('disconnect', () => {
+    console.log('user disconnected');
+  });
 });
 
-http.listen(port, function () {
-	console.log(`Listening on *:${port}`);
+http.listen(3000, () => {
+  console.log('Listening on 3000');
 });
