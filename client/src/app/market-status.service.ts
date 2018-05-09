@@ -1,25 +1,27 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Subject, Observable} from 'rxjs';
+import { Injectable } from  '@angular/core';
+import { HttpClient } from  '@angular/common/http';
+import { Subject, Observable,from } from  'rxjs';
 
-import * as socketio from 'socket.io-client';
+import  *  as socketio from  'socket.io-client';
 
-import {MarketPrice} from './market-price';
+import { MarketPrice } from  './market-price';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class MarketStatusService {
-
-  constructor(private httpClient: HttpClient) {
-  }
+  
+  private baseUrl =  'http://localhost:3000';
+  constructor(private httpClient: HttpClient) { }
 
   getInitialMarketStatus() {
-    return this.httpClient.get<MarketPrice[]>('http://localhost:3000/api/market');
+    return this.httpClient.get<MarketPrice[]>(`${this.baseUrl}/api/market`);
   }
 
   getUpdates() {
-    const socket = socketio('http://localhost:3000');
-    const marketSub = new Subject<MarketPrice>();
-    const marketSubObservable = Observable.from(marketSub);
+    let socket = socketio(this.baseUrl);
+    let marketSub = new Subject<MarketPrice>();
+    let marketSubObservable = from(marketSub);
 
     socket.on('market', (marketStatus: MarketPrice) => {
       marketSub.next(marketStatus);

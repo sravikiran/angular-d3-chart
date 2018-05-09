@@ -1,8 +1,7 @@
-import {Component} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-
-import {MarketStatusService} from './market-status.service';
-import {MarketPrice} from './market-price';
+import { Component } from '@angular/core';
+import { MarketStatusService } from './market-status.service';
+import { Observable } from 'rxjs';
+import { MarketPrice } from './market-price';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +9,7 @@ import {MarketPrice} from './market-price';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  title = 'app';
   marketUpdateObservable: Observable<MarketPrice>;
   marketStatus: MarketPrice[];
   marketStatusToPlot: MarketPrice[];
